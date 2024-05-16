@@ -1,10 +1,10 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-export default function Home() {
+export default function ListFriends() {
   return (
     <View>
-      <Text>HELLO DNQ</Text>
+      <Text>ListFriends</Text>
     </View>
   );
 }

@@ -4,7 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Otp from '../screens/otpScreens';
 import Signup from '../screens/Signup';
 import Signin from '../screens/Signin';
-import Home from '../screens/home';
+import Home from '../screens/chatScreen';
 export type RootStackParamList = {
   Home: undefined;
   Signin: undefined;
