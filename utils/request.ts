@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, {AxiosResponse} from 'axios';
 import type {
   AxiosInstance,
@@ -12,7 +11,7 @@ import {APP_KEY} from '../common/constant';
 
 const baseConfig = {
   timeout: 10000,
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL: 'https://chat-app-backend-1h8e.onrender.com/api',
 };
 
 interface ApiConfig extends AxiosRequestConfig {
@@ -57,11 +56,11 @@ class Request {
       },
       async error => {
         const {status, data} = error.response || {};
-        const {error: msg, errorCode = ''} = data;
+        const {details, errorCode = ''} = data;
 
+        const msg = details[0].message;
         if (status === 400) {
-          notification.error({message: msg});
-          return Promise.reject(data);
+          return Promise.reject(msg);
         }
         // 401: Re-login required
         if (status === 401) {
@@ -80,7 +79,7 @@ class Request {
                     'Content-Type': 'application/json',
                   },
                   body: JSON.stringify({token: refreshToken}),
-                }).then(data => data.json());
+                }).then(_data => data.json());
 
                 const accessToken = resp.access_token;
                 const _refreshToken = resp.refresh_token;
@@ -93,13 +92,11 @@ class Request {
 
                 originalRequest.headers.Authorization = accessToken;
                 return this.instance(originalRequest);
-              } catch (error) {
-                notification.error({
-                  message: `re assign token error ${error}`,
-                });
+              } catch (_error) {
+                return Promise.reject(_error);
               }
             } else {
-              notification.error({message: 'no refresh token'});
+              return Promise.reject(error);
             }
           }
           return Promise.reject(false);
@@ -111,7 +108,6 @@ class Request {
         }
 
         if (status === 404) {
-          notification.error({message: msg});
           return Promise.reject(msg);
         }
 

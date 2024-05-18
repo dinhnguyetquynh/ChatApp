@@ -4,7 +4,9 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Otp from '../screens/otpScreens';
 import Signup from '../screens/Signup';
 import Signin from '../screens/Signin';
-import Home from '../screens/chatScreen';
+
+import HomeScreen from '../screens/HomeScreen';
+import RouterBottom from './RouterBottom';
 export type RootStackParamList = {
   Home: undefined;
   Signin: undefined;
@@ -16,12 +18,12 @@ export default function AppRouter() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Signup"
+        initialRouteName="Signin"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="Otp" component={Otp} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Home" component={RouterBottom} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,6 +1,28 @@
-import {Button, StyleSheet, Text, TextInput, View} from 'react-native';
+/* eslint-disable react/react-in-jsx-scope */
+import {useEffect, useState} from 'react';
+import {Alert, Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import localStorageService from '../services/localStorageService';
+import authService from '../services/authService';
+import {APP_KEY} from '../common/constant';
+const Signin = ({navigation}) => {
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
 
-const Signin = () => {
+  const handleLogin = () => {
+    const data = {phoneNumber, password};
+    if (!phoneNumber || !password) {
+      Alert.alert('Vui lòng nhập đầy đủ thông tin');
+    }
+
+    authService
+      .login(data)
+      .then(resp => {
+        localStorageService.setValue(APP_KEY.token, resp.access_token);
+        localStorageService.setValue(APP_KEY.refreshToken, resp.refresh_token);
+        navigation.navigate('Home');
+      })
+      .catch(error => console.error(error));
+  };
   return (
     <View>
       <View>
@@ -8,17 +30,28 @@ const Signin = () => {
       </View>
       <View style={styless.formSignup}>
         <View>
-          <TextInput placeholder="Số điện thoại" style={styless.input} />
-          <TextInput placeholder="Mật khẩu" style={styless.input} />
+          <TextInput
+            placeholder="Số điện thoại"
+            style={styless.input}
+            value={phoneNumber}
+            onChangeText={setPhoneNumber}
+          />
+          <TextInput
+            placeholder="Mật khẩu"
+            style={styless.input}
+            value={password}
+            onChangeText={setPassword}
+          />
         </View>
       </View>
       <View style={styless.btnSubmit}>
-        <Button title="ĐĂNG NHẬP" color="#aedb3e" />
+        <Button title="ĐĂNG NHẬP" color="#aedb3e" onPress={handleLogin} />
       </View>
       <Text style={styless.textFooter}>Already have Account? Login</Text>
     </View>
   );
 };
+
 const styless = StyleSheet.create({
   text: {
     fontSize: 40,

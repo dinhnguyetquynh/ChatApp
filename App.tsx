@@ -15,5 +15,5 @@ export default function App() {
   //     console.log('Không kết nối được với Firebase.');
   //   }
   // });
-  return <MessageScreen />;
+  return <AppRouter />;
 }

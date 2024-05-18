@@ -29,21 +29,19 @@ const tabs = [
 const RouterBottom: React.FC = () => {
   return (
     <SafeAreaProvider>
-      <NavigationContainer>
-        <Tab.Navigator initialRouteName="ChatScreen">
-          {tabs.map(tab => (
-            <Tab.Screen
-              key={tab.name}
-              name={tab.name}
-              component={tab.component}
-              options={{
-                tabBarLabel: tab.name,
-                tabBarIcon: () => tab.icon,
-              }}
-            />
-          ))}
-        </Tab.Navigator>
-      </NavigationContainer>
+      <Tab.Navigator initialRouteName="ChatScreen">
+        {tabs.map(tab => (
+          <Tab.Screen
+            key={tab.name}
+            name={tab.name}
+            component={tab.component}
+            options={{
+              tabBarLabel: tab.name,
+              tabBarIcon: () => tab.icon,
+            }}
+          />
+        ))}
+      </Tab.Navigator>
     </SafeAreaProvider>
   );
 };
