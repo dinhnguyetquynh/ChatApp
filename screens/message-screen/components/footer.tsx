@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     height: 60,
-    maxWidth: '90%',
     backgroundColor: '#F3F3F3',
     marginBottom: 8,
     borderRadius: 20,
@@ -47,11 +46,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
   textInput: {
+    flex: 1,
     borderRadius: 12,
     backgroundColor: '#F3F3F3',
     width: 280,
     height: 'auto',
-    maxWidth: '95%',
   },
 });
 export default MessageFooter;

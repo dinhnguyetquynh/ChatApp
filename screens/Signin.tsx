@@ -8,6 +8,13 @@ const Signin = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [password, setPassword] = useState('');
 
+  useEffect(() => {
+    localStorageService
+      .getValue(APP_KEY.token)
+      .then(() => navigation.navigate('Home'))
+      .catch();
+  }, []);
+
   const handleLogin = () => {
     const data = {phoneNumber, password};
     if (!phoneNumber || !password) {

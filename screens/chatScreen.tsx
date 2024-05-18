@@ -33,10 +33,11 @@ const DATA = [
     lastTime: '20min',
   },
 ];
-const Item = ({nameUser, lastMess, lastTime}) => {
+const Item = ({nameUser, lastMess, lastTime, navigation}) => {
   return (
     <View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => navigation.navigate('Root', {screen: 'Message'})}>
         <View style={styles.message}>
           <View style={styles.img_and_mes}>
             <Image
@@ -56,7 +57,7 @@ const Item = ({nameUser, lastMess, lastTime}) => {
     </View>
   );
 };
-export default function ChatScreen() {
+export default function ChatScreen({navigation}) {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
@@ -91,6 +92,7 @@ export default function ChatScreen() {
             nameUser={item.nameUser}
             lastMess={item.lastMess}
             lastTime={item.lastTime}
+            navigation={navigation}
           />
         )}
         keyExtractor={item => item.id}

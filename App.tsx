@@ -1,9 +1,10 @@
 import React from 'react';
 
-// import AppRouter from './navigation/router';
+import AppRouter from './navigation/router';
 // import {firebase} from '@react-native-firebase/auth';
 
 import MessageScreen from './screens/message-screen';
+import ListFriends from './screens/ListFriends';
 
 export default function App() {
   // firebase.auth().onAuthStateChanged(user => {

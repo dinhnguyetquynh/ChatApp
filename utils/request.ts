@@ -58,7 +58,6 @@ class Request {
         const {status, data} = error.response || {};
         const {details, errorCode = ''} = data;
 
-        console.log(details);
         const msg = details[0].message;
         if (status === 400) {
           return Promise.reject(msg);
