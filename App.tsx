@@ -3,9 +3,7 @@ import React from 'react';
 // import AppRouter from './navigation/router';
 // import {firebase} from '@react-native-firebase/auth';
 
-import AppRouter from './navigation/router';
-import MessageScreen from './screens/messageScreen';
-import {Example} from './screens/viduGifted';
+import MessageScreen from './screens/message-screen';
 
 export default function App() {
   // firebase.auth().onAuthStateChanged(user => {
