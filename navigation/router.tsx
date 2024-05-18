@@ -18,7 +18,7 @@ export default function AppRouter() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="Signin"
+        initialRouteName="Signup"
         screenOptions={{headerShown: false}}>
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="Signin" component={Signin} />

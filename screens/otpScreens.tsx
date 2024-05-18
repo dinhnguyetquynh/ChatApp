@@ -13,11 +13,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import auth, {FirebaseAuthTypes} from '@react-native-firebase/auth';
 import {RootStackParamList} from '../navigation/router';
+import authService from '../services/authService';
+import localStorageService from '../services/localStorageService';
+import {APP_KEY} from '../common/constant';
 const image = {
   uri: 'https://arkesel.com/wp-content/uploads/2023/12/otp-illustrations.png',
 };
 type OtpScreenRouteProp = RouteProp<RootStackParamList, 'Otp'>;
-export default function Otp() {
+export default function Otp({navigation}) {
   const route = useRoute<OtpScreenRouteProp>();
   const {phoneNumber, password} = route.params;
   const [confirm, setConfirm] =
@@ -25,7 +28,9 @@ export default function Otp() {
   const [code, setCode] = useState('');
 
   useEffect(() => {
-    signInWithPhoneNumber(phoneNumber)
+    const _phoneNumber = phoneNumber.split('');
+    _phoneNumber[0] = '+84';
+    signInWithPhoneNumber(_phoneNumber.join(''))
       .then(() => {
         console.log('gui otp thanh cong');
       })
@@ -49,6 +54,16 @@ export default function Otp() {
         console.log('Invalid code.');
       }
     }
+    const dataRoute = {phoneNumber, password};
+    console.log(dataRoute);
+    authService
+      .signup(dataRoute)
+      .then(resp => {
+        localStorageService.setValue(APP_KEY.token, resp.access_token);
+        localStorageService.setValue(APP_KEY.token, resp.refresh_token);
+        navigation.navigate('Home');
+      })
+      .catch(error => console.log(error));
   }
 
   return (

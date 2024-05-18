@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import React, {useState} from 'react';
 import {Alert, Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import userService from '../services/userService';
 
 const Signup = () => {
   const navigation = useNavigation();
@@ -11,8 +12,19 @@ const Signup = () => {
     if (!phoneNumber || !password || !confirmPass) {
       Alert.alert('Vui lòng nhập đầy đủ thông tin');
     } else {
-      if (password === confirmPass) {
-        navigation.navigate('Otp', {phoneNumber, password});
+      if (
+        password.length >= 8 &&
+        confirmPass.length >= 8 &&
+        password === confirmPass
+      ) {
+        userService
+          .getUserByPhone(phoneNumber)
+          .then(() => {
+            Alert.alert('Số điện thoại đã được đăng ký rồi');
+          })
+          .catch(() => {
+            navigation.navigate('Otp', {phoneNumber, password});
+          });
       } else {
         Alert.alert('Vui lòng nhập lại confirm password!');
       }
@@ -35,11 +47,13 @@ const Signup = () => {
             placeholder="Password"
             value={password}
             onChangeText={setPassword}
+            secureTextEntry
           />
           <TextInput
             placeholder="Confirm password"
             value={confirmPass}
             onChangeText={setConfirmPass}
+            secureTextEntry
           />
         </View>
       </View>

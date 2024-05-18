@@ -11,7 +11,7 @@ import {APP_KEY} from '../common/constant';
 
 const baseConfig = {
   timeout: 10000,
-  baseURL: 'https://chat-app-backend-1h8e.onrender.com/api',
+  baseURL: 'https://2913-2001-ee0-2c9-b25a-e09c-5d78-8ba9-1c01.ngrok-free.app/api',
 };
 
 interface ApiConfig extends AxiosRequestConfig {
@@ -58,6 +58,7 @@ class Request {
         const {status, data} = error.response || {};
         const {details, errorCode = ''} = data;
 
+        console.log(details);
         const msg = details[0].message;
         if (status === 400) {
           return Promise.reject(msg);

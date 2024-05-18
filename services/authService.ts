@@ -10,6 +10,10 @@ class AuthService {
     console.log(data);
     return this.req.post<LoginDataRes>('/auth/login', data);
   }
+  async signup(data: LoginDataReq) {
+    console.log(data);
+    return this.req.post<LoginDataRes>('/auth/signup', data);
+  }
 
   async revokeToken(refreshToken: string) {
     return this.req.post<LoginDataRes>('/auth/revoke', {token: refreshToken});
