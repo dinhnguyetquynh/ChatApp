@@ -5,9 +5,57 @@ import {
   Image,
   StyleSheet,
   TextInput,
+  FlatList,
 } from 'react-native';
-import React from 'react';
-
+import React, {useState} from 'react';
+import {Button} from 'react-native-paper';
+// interface chatList {
+//   id: string;
+//   img: string;
+//   nameUser: string;
+//   lastMess: string;
+//   lastTime: string;
+// }
+const DATA = [
+  {
+    id: '1',
+    // img: '../assets/img/ava.jpg',
+    img: '../assets/img/ava.jpg',
+    nameUser: 'Dinh Nguyet Quynh',
+    lastMess: 'hello dinh nguyet quynh',
+    lastTime: '12min',
+  },
+  {
+    id: '2',
+    img: '../assets/img/ava.jpg',
+    nameUser: 'Tuấn Cường',
+    lastMess: 'hello Quynh',
+    lastTime: '20min',
+  },
+];
+const Item = ({nameUser, lastMess, lastTime}) => {
+  return (
+    <View>
+      <TouchableOpacity>
+        <View style={styles.message}>
+          <View style={styles.img_and_mes}>
+            <Image
+              source={require('../assets/img/ava.jpg')}
+              style={styles.imgAva}
+            />
+            <View style={styles.last_mes}>
+              <Text style={styles.name}>{nameUser}</Text>
+              <Text>{lastMess}</Text>
+            </View>
+          </View>
+          <View>
+            <Text>{lastTime}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
+};
 export default function ChatScreen() {
   return (
     <View style={styles.container}>
@@ -20,7 +68,7 @@ export default function ChatScreen() {
       <View style={styles.search}>
         <TextInput placeholder="Search" />
       </View>
-      <View style={styles.message}>
+      {/* <View style={styles.message}>
         <View style={styles.img_and_mes}>
           <Image
             source={require('../assets/img/ava.jpg')}
@@ -35,7 +83,18 @@ export default function ChatScreen() {
         <View>
           <Text>12 min</Text>
         </View>
-      </View>
+      </View> */}
+      <FlatList
+        data={DATA}
+        renderItem={({item}) => (
+          <Item
+            nameUser={item.nameUser}
+            lastMess={item.lastMess}
+            lastTime={item.lastTime}
+          />
+        )}
+        keyExtractor={item => item.id}
+      />
     </View>
   );
 }
